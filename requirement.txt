@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+jinja2
+python-jose
+passlib
+bcrypt
+pandas
+openpyxl
+aiofiles

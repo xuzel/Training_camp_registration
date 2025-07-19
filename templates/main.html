@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>训练营报名系统</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 15px 20px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-left-color: #fff;
+            transform: translateX(5px);
+        }
+
+        .sidebar-nav a.active {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            border-left-color: #fff;
+        }
+
+        .sidebar-nav a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+            padding: 30px;
+            background-color: #f5f5f5;
+        }
+
+        .content-header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .content-header h2 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .content-header p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* 卡片网格 */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 1000px;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .dashboard-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .dashboard-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+
+        .card-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* 移动端菜单按钮 */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+
+            .content-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-header {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .content-header {
+                padding: 20px 15px;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
+        }
+
+        /* 成功消息样式 */
+        .alert {
+            border: none;
+            border-radius: 8px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <!-- 移动端菜单切换按钮 -->
+    <button class="menu-toggle" onclick="toggleSidebar()">
+        ☰
+    </button>
+
+    <!-- 侧边栏 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>训练营系统</h1>
+        </div>
+        <ul class="sidebar-nav">
+            <li>
+                <a href="/">
+                    <i>🏠</i>
+                    主页
+                </a>
+            </li>
+            <li>
+                <a href="/registration">
+                    <i>📝</i>
+                    报名表
+                </a>
+            </li>
+            <li>
+                <a href="/feedback">
+                    <i>💬</i>
+                    满意度反馈
+                </a>
+            </li>
+            <li>
+                <a href="/admin/login">
+                    <i>⚙️</i>
+                    管理员界面
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 成功消息 -->
+        {% if registration_success %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="registrationSuccessAlert">
+            <strong>🎉 报名成功！</strong> 您的报名信息已成功提交，我们将尽快与您联系。
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        {% if feedback_success %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="feedbackSuccessAlert">
+            <strong>🎉 反馈提交成功！</strong> 感谢您的宝贵意见和建议，我们将认真考虑并持续改进。
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        <!-- 页面标题 -->
+        <div class="content-header">
+            <h2>欢迎使用训练营报名系统</h2>
+            <p>这是一个专业的训练营报名管理系统，提供便捷的报名流程和完善的管理功能。请选择左侧菜单开始使用。</p>
+        </div>
+
+        <!-- 功能卡片 -->
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <h3>📝 在线报名</h3>
+                <p>快速、便捷的在线报名系统，支持多种报名方式，实时提交，即时反馈。填写个人信息，选择训练营项目，完成报名流程。</p>
+                <a href="/registration" class="card-button">立即报名</a>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>💬 满意度反馈</h3>
+                <p>分享您的使用体验和建议，帮助我们持续改进系统服务质量。您的反馈对我们非常重要，让我们共同打造更好的用户体验。</p>
+                <a href="/feedback" class="card-button">提交反馈</a>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>📊 反馈管理</h3>
+                <p>查看和管理所有用户反馈，分析满意度数据，了解用户需求和改进建议。为管理员提供全面的反馈分析和统计功能。</p>
+                <a href="/feedback/list" class="card-button">查看反馈</a>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>⚙️ 系统管理</h3>
+                <p>强大的后台管理系统，可以查看报名统计、管理报名信息、导出数据等。为管理员提供全面的数据分析和管理工具。</p>
+                <a href="/admin/login" class="card-button">进入管理</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 高亮当前页面的导航项
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+
+            // 自动隐藏成功消息
+            const successAlerts = document.querySelectorAll('.alert.alert-success');
+            successAlerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.classList.remove('show');
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 300);
+                }, 5000);
+            });
+        });
+
+        // 移动端侧边栏切换
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // 点击页面其他地方关闭侧边栏
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.menu-toggle');
+
+            if (window.innerWidth <= 600 &&
+                sidebar.classList.contains('show') &&
+                !sidebar.contains(event.target) &&
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业健身健美训练营 报名表</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.2em;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-size: 1em;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .checkbox-group label, .radio-group label {
+            font-weight: normal;
+            display: inline-block;
+            margin-right: 15px;
+        }
+        .checkbox-group input, .radio-group input {
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .required-star {
+            color: #e74c3c;
+            margin-left: 4px;
+        }
+        .form-section-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .terms-conditions {
+            margin-top: 40px;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        .terms-conditions h3 {
+            margin-top: 0;
+            color: #34495e;
+        }
+        .terms-conditions ol {
+            padding-left: 20px;
+            line-height: 1.8;
+            color: #555;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        .note {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="/" class="back-btn">← 返回主页</a>
+
+        <div class="header">
+            <h1>专业健身健美训练营</h1>
+            <p>报名表</p>
+        </div>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/registration/submit" method="post">
+
+            <h2 class="form-section-title">个人基本资料</h2>
+
+            <div class="form-group">
+                <label for="full-name">姓名<span class="required-star">*</span></label>
+                <input type="text" id="full-name" name="full_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">联系电话<span class="required-star">*</span></label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="wechat">微信账号<span class="required-star">*</span></label>
+                <input type="text" id="wechat" name="wechat" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">电子邮箱<span class="required-star">*</span></label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="occupation">个人职业<span class="required-star">*</span></label>
+                <input type="text" id="occupation" name="occupation" required>
+            </div>
+
+            <h2 class="form-section-title">课程与训练背景</h2>
+
+            <div class="form-group">
+                <label>请选择您计划出席的活动日<span class="required-star">*</span></label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="day22" name="attendance_days" value="8/22">
+                    <label for="day22">8月22日</label>
+                    <input type="checkbox" id="day23" name="attendance_days" value="8/23">
+                    <label for="day23">8月23日</label>
+                    <input type="checkbox" id="day24" name="attendance_days" value="8/24">
+                    <label for="day24">8月24日</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="backup-plan">如遇未能出席的日子，您希望选择的候补方案是？<span class="required-star">*</span></label>
+                <select id="backup-plan" name="backup_plan" required>
+                    <option value="" disabled selected>请选择一个方案</option>
+                    <option value="A">方案A：课程顺延至下期</option>
+                    <option value="B">方案B：提供该日课程的线上学习录影</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experience">您的运动经验<span class="required-star">*</span></label>
+                <p class="note">（例如：重训年资、专项运动、频率等）</p>
+                <textarea id="experience" name="experience" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="goal">您参加本次训练营的主要目标<span class="required-star">*</span></label>
+                <p class="note">（例如：增肌、减脂、备赛、学习新技术等）</p>
+                <textarea id="goal" name="goal" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>是否有参与过健美比赛的经验？<span class="required-star">*</span></label>
+                <div class="radio-group">
+                    <input type="radio" id="comp-yes" name="competition_experience" value="yes" required>
+                    <label for="comp-yes">有</label>
+                    <input type="radio" id="comp-no" name="competition_experience" value="no">
+                    <label for="comp-no">没有</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="comp-category">如有比赛经验，请列明项目</label>
+                <p class="note">（例如：男子传统健美、古典健体、女子比基尼等）</p>
+                <input type="text" id="comp-category" name="comp_category">
+            </div>
+
+            <div class="form-group">
+                <label for="injury-history">您是否有任何旧患或受伤历史？<span class="required-star">*</span></label>
+                <p class="note">（请详细说明，以便教练为您调整训练内容。如没有，请填「无」。）</p>
+                <textarea id="injury-history" name="injury_history" required></textarea>
+            </div>
+
+            <h2 class="form-section-title">其他资讯</h2>
+
+            <div class="form-group">
+                <label for="questions">对本次课程，您有什么特别想查询的问题吗？</label>
+                <textarea id="questions" name="questions"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="channel">您是透过什么渠道得知本次训练营？<span class="required-star">*</span></label>
+                <select id="channel" name="channel" required>
+                    <option value="" disabled selected>请选择一个渠道</option>
+                    <option value="social-media">社交媒体 (Instagram, Facebook等)</option>
+                    <option value="friend-referral">朋友/教练介绍</option>
+                    <option value="search-engine">搜索引擎 (Google, etc.)</option>
+                    <option value="poster-flyer">海报/传单</option>
+                    <option value="previous-participant">曾参与过往活动</option>
+                    <option value="other">其他</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="products">您希望训练营现场有什么产品可供选购？</label>
+                <p class="note">（例如：品牌服饰、乳清蛋白、肌酸、训练腰带等）</p>
+                <textarea id="products" name="products"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="future-services">您希望我们将来的训练营可以包含什么其他服务？</label>
+                <p class="note">（例如：营养餐单订制、体态评估、一对一咨询等）</p>
+                <textarea id="future-services" name="future_services"></textarea>
+            </div>
+
+            <div class="terms-conditions">
+                <h3>条款及细则</h3>
+                <ol>
+                    <li>本訓練營保留对課程安排、活動內容及相關條款修改的权力。</li>
+                    <li>参与者同意本训练营使用參與者的肖像權作官方宣傳活動，包含照片、影片及其他媒體形式。</li>
+                    <li>參與者需保持健康身體狀況，並遵循教練指導，保持良好的學習態度。</li>
+                    <li>参与者已付款項原则上不予退还；若因不可抗力（如自然灾害、政策管制）导致训练营取消，将按未发生费用比例退还。</li>
+                    <li>參與者需自行負責個人健康狀況，如有任何健康問題需提前告知本训练营。</li>
+                    <li>參與者需遵守訓練營的所有規定，包括但不限於活動時間、場地使用及安全指導。</li>
+                    <li>参与者對於在活動期間因疏忽或違反規定而造成的任何損失或傷害自行承擔責任。</li>
+                    <li>參與者需自行保管個人物品，對遺失或損壞的物品自行負責。</li>
+                    <li>训练营期间引发的任何争议应优先通过友好协商解决。</li>
+                    <li>本条款最终解释权归训练营所有。若有未尽事宜，以训练营补充说明为准。</li>
+                </ol>
+                <div class="form-group" style="margin-top: 20px; margin-bottom: 0;">
+                    <input type="checkbox" id="agree-terms" name="agree_terms" required>
+                    <label for="agree-terms" style="display: inline; font-weight: bold;">我已详细阅读、完全理解并同意以上所有条款及细则。<span class="required-star">*</span></label>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 40px;">
+                <button type="submit" class="submit-btn">确认并提交报名</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
