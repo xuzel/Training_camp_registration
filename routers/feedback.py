@@ -2,11 +2,10 @@
 满意度反馈功能路由
 """
 
-from fastapi import APIRouter, Request, Form, Depends
+from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from typing import Optional
-from datetime import date
 from database import db_manager
 
 router = APIRouter()
@@ -22,35 +21,28 @@ async def feedback_form(request: Request):
 @router.post("/feedback/submit")
 async def submit_feedback(
         request: Request,
-        name: Optional[str] = Form(""),
-        participation_date: date = Form(...),
-        trainer_satisfaction: int = Form(...),
-        content_satisfaction: int = Form(...),
-        venue_satisfaction: int = Form(...),
-        equipment_satisfaction: int = Form(...),
-        schedule_satisfaction: int = Form(...),
-        overall_satisfaction: int = Form(...),
-        favorite: Optional[str] = Form(""),
-        improvement: Optional[str] = Form(""),
-        future_suggestions: Optional[str] = Form(""),
-        other_comments: Optional[str] = Form("")
+        knowledge: int = Form(...),
+        technique: int = Form(...),
+        planning: int = Form(...),
+        confidence: int = Form(...),
+        instructor: int = Form(...),
+        materials: int = Form(...),
+        venue: int = Form(...),
+        suggestions: Optional[str] = Form(""),
+        products: Optional[str] = Form(""),
+        services: Optional[str] = Form("")
 ):
     """处理满意度反馈表单提交"""
 
     # 验证必填字段
-    if not all([participation_date, trainer_satisfaction, content_satisfaction,
-                venue_satisfaction, equipment_satisfaction, schedule_satisfaction,
-                overall_satisfaction]):
+    if not all([knowledge, technique, planning, confidence, instructor, materials, venue]):
         return templates.TemplateResponse("feedback.html", {
             "request": request,
             "error": "请填写所有必填字段"
         })
 
     # 验证评分范围
-    satisfaction_scores = [
-        trainer_satisfaction, content_satisfaction, venue_satisfaction,
-        equipment_satisfaction, schedule_satisfaction, overall_satisfaction
-    ]
+    satisfaction_scores = [knowledge, technique, planning, confidence, instructor, materials, venue]
 
     if not all(1 <= score <= 5 for score in satisfaction_scores):
         return templates.TemplateResponse("feedback.html", {
@@ -60,18 +52,16 @@ async def submit_feedback(
 
     # 构建反馈数据
     feedback_data = {
-        'name': name if name else '',
-        'participation_date': participation_date,
-        'trainer_satisfaction': trainer_satisfaction,
-        'content_satisfaction': content_satisfaction,
-        'venue_satisfaction': venue_satisfaction,
-        'equipment_satisfaction': equipment_satisfaction,
-        'schedule_satisfaction': schedule_satisfaction,
-        'overall_satisfaction': overall_satisfaction,
-        'favorite': favorite if favorite else '',
-        'improvement': improvement if improvement else '',
-        'future_suggestions': future_suggestions if future_suggestions else '',
-        'other_comments': other_comments if other_comments else ''
+        'knowledge_improvement': knowledge,
+        'technique_understanding': technique,
+        'planning_ability': planning,
+        'confidence_boost': confidence,
+        'instructor_satisfaction': instructor,
+        'materials_satisfaction': materials,
+        'venue_satisfaction': venue,
+        'suggestions': suggestions if suggestions else '',
+        'desired_products': products if products else '',
+        'desired_services': services if services else ''
     }
 
     # 保存到数据库

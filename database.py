@@ -44,25 +44,40 @@ class DatabaseManager:
             )
         ''')
 
-        # 创建满意度反馈表
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS feedback (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                participation_date DATE NOT NULL,
-                trainer_satisfaction INTEGER NOT NULL,
-                content_satisfaction INTEGER NOT NULL,
-                venue_satisfaction INTEGER NOT NULL,
-                equipment_satisfaction INTEGER NOT NULL,
-                schedule_satisfaction INTEGER NOT NULL,
-                overall_satisfaction INTEGER NOT NULL,
-                favorite TEXT,
-                improvement TEXT,
-                future_suggestions TEXT,
-                other_comments TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ''')
+        # 检查是否需要更新feedback表结构
+        cursor.execute("PRAGMA table_info(feedback)")
+        columns = [column[1] for column in cursor.fetchall()]
+
+        # 如果表不存在或字段不匹配，重新创建
+        expected_columns = [
+            'id', 'knowledge_improvement', 'technique_understanding', 'planning_ability',
+            'confidence_boost', 'instructor_satisfaction', 'materials_satisfaction',
+            'venue_satisfaction', 'suggestions', 'desired_products', 'desired_services', 'created_at'
+        ]
+
+        if not all(col in columns for col in expected_columns):
+            # 备份旧数据（如果存在）
+            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='feedback'")
+            if cursor.fetchone():
+                cursor.execute("ALTER TABLE feedback RENAME TO feedback_old")
+
+            # 创建新的满意度反馈表
+            cursor.execute('''
+                CREATE TABLE feedback (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    knowledge_improvement INTEGER NOT NULL,
+                    technique_understanding INTEGER NOT NULL,
+                    planning_ability INTEGER NOT NULL,
+                    confidence_boost INTEGER NOT NULL,
+                    instructor_satisfaction INTEGER NOT NULL,
+                    materials_satisfaction INTEGER NOT NULL,
+                    venue_satisfaction INTEGER NOT NULL,
+                    suggestions TEXT,
+                    desired_products TEXT,
+                    desired_services TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
 
         conn.commit()
         conn.close()
@@ -75,23 +90,21 @@ class DatabaseManager:
 
             cursor.execute('''
                 INSERT INTO feedback (
-                    name, participation_date, trainer_satisfaction, content_satisfaction,
-                    venue_satisfaction, equipment_satisfaction, schedule_satisfaction,
-                    overall_satisfaction, favorite, improvement, future_suggestions, other_comments
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    knowledge_improvement, technique_understanding, planning_ability,
+                    confidence_boost, instructor_satisfaction, materials_satisfaction,
+                    venue_satisfaction, suggestions, desired_products, desired_services
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (
-                feedback_data.get('name', ''),
-                feedback_data['participation_date'],
-                feedback_data['trainer_satisfaction'],
-                feedback_data['content_satisfaction'],
+                feedback_data['knowledge_improvement'],
+                feedback_data['technique_understanding'],
+                feedback_data['planning_ability'],
+                feedback_data['confidence_boost'],
+                feedback_data['instructor_satisfaction'],
+                feedback_data['materials_satisfaction'],
                 feedback_data['venue_satisfaction'],
-                feedback_data['equipment_satisfaction'],
-                feedback_data['schedule_satisfaction'],
-                feedback_data['overall_satisfaction'],
-                feedback_data.get('favorite', ''),
-                feedback_data.get('improvement', ''),
-                feedback_data.get('future_suggestions', ''),
-                feedback_data.get('other_comments', '')
+                feedback_data.get('suggestions', ''),
+                feedback_data.get('desired_products', ''),
+                feedback_data.get('desired_services', '')
             ))
 
             conn.commit()

@@ -203,6 +203,17 @@
             width: 80px;
         }
 
+        .rating-cell {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .rating-cell[data-rating="5"] { color: #28a745; }
+        .rating-cell[data-rating="4"] { color: #17a2b8; }
+        .rating-cell[data-rating="3"] { color: #ffc107; }
+        .rating-cell[data-rating="2"] { color: #fd7e14; }
+        .rating-cell[data-rating="1"] { color: #dc3545; }
+
         /* 响应式处理 */
         @media (max-width: 768px) {
             .admin-header .container {
@@ -319,16 +330,16 @@
                                     <th>了解渠道</th>
                                     <th>报名时间</th>
                                 {% else %}
-                                    <th>姓名</th>
-                                    <th>参与日期</th>
+                                    <th>知识认知提升</th>
+                                    <th>技巧理解掌握</th>
+                                    <th>课表安排能力</th>
+                                    <th>自信心提升</th>
                                     <th>讲师满意度</th>
-                                    <th>内容满意度</th>
-                                    <th>场地满意度</th>
-                                    <th>器材满意度</th>
-                                    <th>课程安排满意度</th>
-                                    <th>整体满意度</th>
-                                    <th>最喜欢的部分</th>
-                                    <th>改善建议</th>
+                                    <th>教材满意度</th>
+                                    <th>场地器材满意度</th>
+                                    <th>建议与改善</th>
+                                    <th>期望产品</th>
+                                    <th>期望服务</th>
                                     <th>提交时间</th>
                                 {% endif %}
                                 <th class="action-column">操作</th>
@@ -354,16 +365,16 @@
                                     <td>{{ item.channel }}</td>
                                     <td>{{ item.created_at[:19] if item.created_at else '' }}</td>
                                 {% else %}
-                                    <td>{{ item.name or '匿名' }}</td>
-                                    <td>{{ item.participation_date }}</td>
-                                    <td>{{ item.trainer_satisfaction }}/5</td>
-                                    <td>{{ item.content_satisfaction }}/5</td>
-                                    <td>{{ item.venue_satisfaction }}/5</td>
-                                    <td>{{ item.equipment_satisfaction }}/5</td>
-                                    <td>{{ item.schedule_satisfaction }}/5</td>
-                                    <td>{{ item.overall_satisfaction }}/5</td>
-                                    <td class="expandable" title="{{ item.favorite }}">{{ item.favorite }}</td>
-                                    <td class="expandable" title="{{ item.improvement }}">{{ item.improvement }}</td>
+                                    <td class="rating-cell" data-rating="{{ item.knowledge_improvement }}">{{ item.knowledge_improvement }}/5</td>
+                                    <td class="rating-cell" data-rating="{{ item.technique_understanding }}">{{ item.technique_understanding }}/5</td>
+                                    <td class="rating-cell" data-rating="{{ item.planning_ability }}">{{ item.planning_ability }}/5</td>
+                                    <td class="rating-cell" data-rating="{{ item.confidence_boost }}">{{ item.confidence_boost }}/5</td>
+                                    <td class="rating-cell" data-rating="{{ item.instructor_satisfaction }}">{{ item.instructor_satisfaction }}/5</td>
+                                    <td class="rating-cell" data-rating="{{ item.materials_satisfaction }}">{{ item.materials_satisfaction }}/5</td>
+                                    <td class="rating-cell" data-rating="{{ item.venue_satisfaction }}">{{ item.venue_satisfaction }}/5</td>
+                                    <td class="expandable" title="{{ item.suggestions }}">{{ item.suggestions[:50] + '...' if item.suggestions and item.suggestions|length > 50 else item.suggestions or '无' }}</td>
+                                    <td class="expandable" title="{{ item.desired_products }}">{{ item.desired_products[:50] + '...' if item.desired_products and item.desired_products|length > 50 else item.desired_products or '无' }}</td>
+                                    <td class="expandable" title="{{ item.desired_services }}">{{ item.desired_services[:50] + '...' if item.desired_services and item.desired_services|length > 50 else item.desired_services or '无' }}</td>
                                     <td>{{ item.created_at[:19] if item.created_at else '' }}</td>
                                 {% endif %}
                                 <td class="action-column">

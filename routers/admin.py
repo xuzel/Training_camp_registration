@@ -121,21 +121,19 @@ async def export_data(request: Request, table: str = "registrations"):
         if table == "feedback":
             data = db_manager.get_all_feedback()
             filename = f"feedback_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
-            # 重命名列标题
+            # 重命名列标题 - 匹配新的数据库结构
             column_mapping = {
                 'id': 'ID',
-                'name': '姓名',
-                'participation_date': '参与日期',
-                'trainer_satisfaction': '讲师满意度',
-                'content_satisfaction': '内容满意度',
-                'venue_satisfaction': '场地满意度',
-                'equipment_satisfaction': '器材满意度',
-                'schedule_satisfaction': '课程安排满意度',
-                'overall_satisfaction': '整体满意度',
-                'favorite': '最喜欢的部分',
-                'improvement': '改善建议',
-                'future_suggestions': '未来建议',
-                'other_comments': '其他意见',
+                'knowledge_improvement': '知识认知提升',
+                'technique_understanding': '技巧理解掌握',
+                'planning_ability': '课表安排能力',
+                'confidence_boost': '自信心提升',
+                'instructor_satisfaction': '讲师满意度',
+                'materials_satisfaction': '教材满意度',
+                'venue_satisfaction': '场地器材满意度',
+                'suggestions': '建议与改善',
+                'desired_products': '期望产品',
+                'desired_services': '期望服务',
                 'created_at': '提交时间'
             }
         else:

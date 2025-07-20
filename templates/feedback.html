@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-HK">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>健身健美训练营满意度调查表</title>
+    <title>訓練營回饋與感想</title>
     <style>
         body {
             font-family: 'Microsoft YaHei', Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #f4f5f7;
             margin: 0;
             padding: 20px;
             color: #333;
         }
         .container {
             max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
         .back-btn {
             display: inline-block;
@@ -34,121 +34,128 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
-        h1, h3 {
+        h1, h2 {
             text-align: center;
-            color: #333;
+            color: #2c3e50;
         }
         h1 {
             margin-bottom: 10px;
         }
-        .subtitle {
+        .intro-text {
             text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-        }
-        .section {
+            color: #555;
             margin-bottom: 30px;
         }
-        .form-group {
+        .section-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 40px;
             margin-bottom: 20px;
         }
-        label {
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .question-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: bold;
-            color: #333;
-        }
-        input[type="text"],
-        input[type="date"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
-            box-sizing: border-box;
-        }
-        input[type="text"]:focus,
-        input[type="date"]:focus {
-            border-color: #667eea;
-            outline: none;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
-        }
-        .rating {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-        .rating label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-weight: normal;
-            margin-bottom: 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .rating label:hover {
-            transform: scale(1.1);
-        }
-        .rating input[type="radio"] {
-            margin-bottom: 5px;
-            transform: scale(1.2);
-        }
-        .rating-label {
-            font-size: 0.9em;
-            color: #666;
-        }
-        .rating-scale {
-            text-align: center;
-            color: #888;
-            font-size: 0.9em;
-            margin-bottom: 10px;
+            color: #34495e;
         }
         textarea {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: vertical;
-            min-height: 100px;
-            font-family: inherit;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
+            border: 1px solid #ccc;
+            border-radius: 8px;
             box-sizing: border-box;
+            font-size: 14px;
+            min-height: 100px;
+            resize: vertical;
+            transition: border-color 0.3s;
         }
         textarea:focus {
-            border-color: #667eea;
+            border-color: #3498db;
             outline: none;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+        .rating-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+        .rating-group label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            color: #555;
+            margin: 5px 10px;
+        }
+        .rating-group input[type="radio"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .rating-group input[type="radio"]:checked {
+            background-color: #3498db;
+            border-color: #3498db;
+        }
+        .rating-group input[type="radio"]:checked::after {
+            content: '✔';
+            color: white;
+            font-size: 16px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .rating-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #777;
+            padding: 0 15px;
         }
         .submit-btn {
             display: block;
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: #fff;
             border: none;
-            border-radius: 5px;
-            font-size: 1.1em;
+            border-radius: 8px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
             margin-top: 30px;
-            transition: all 0.3s ease;
         }
         .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
         }
-        .required {
-            color: #e74c3c;
-            margin-left: 3px;
+        .plan-details {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+        }
+        .plan-details p, .plan-details ul {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        .plan-details ul {
+            padding-left: 20px;
         }
         .error-message {
             background-color: #f8d7da;
@@ -158,10 +165,27 @@
             margin-bottom: 20px;
             border: 1px solid #f5c6cb;
         }
-        .section h3 {
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            .rating-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .rating-group label {
+                flex-direction: row;
+                margin: 5px 0;
+            }
+            .rating-group input[type="radio"] {
+                margin-right: 10px;
+                margin-bottom: 0;
+            }
         }
     </style>
 </head>
@@ -169,8 +193,8 @@
     <div class="container">
         <a href="/" class="back-btn">← 返回主页</a>
 
-        <h1>健身健美训练营满意度调查表</h1>
-        <p class="subtitle">感谢您的参与！您的意见对我们非常重要，将有助于我们改进未来的训练营。</p>
+        <h1>🌟 訓練營回饋與感想 🌟</h1>
+        <p class="intro-text">感謝您參與本次訓練營！為了讓我們未來能提供更優質的內容，請您抽出幾分鐘時間填寫這份回饋表格。您的意見對我們至關重要！</p>
 
         {% if error %}
         <div class="error-message">
@@ -179,211 +203,122 @@
         {% endif %}
 
         <form action="/feedback/submit" method="post">
-            <!-- 基本信息 -->
-            <div class="section">
-                <h3>基本信息</h3>
-                <div class="form-group">
-                    <label for="name">姓名（可选）</label>
-                    <input type="text" id="name" name="name" placeholder="请输入您的姓名">
-                </div>
-                <div class="form-group">
-                    <label for="participation_date">参与训练营日期<span class="required">*</span></label>
-                    <input type="date" id="participation_date" name="participation_date" required>
+            <!-- Part 1: 自我檢查 (Self-Check) -->
+            <div class="section-title">第一部分：自我成長檢查</div>
+
+            <div class="form-group">
+                <label class="question-label">1. 經過訓練營，我對健身健美知識的認知程度：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="knowledge" value="5" required> 非常顯著提升</label>
+                    <label><input type="radio" name="knowledge" value="4"> 有所提升</label>
+                    <label><input type="radio" name="knowledge" value="3"> 普通</label>
+                    <label><input type="radio" name="knowledge" value="2"> 略有提升</label>
+                    <label><input type="radio" name="knowledge" value="1"> 沒有變化</label>
                 </div>
             </div>
 
-            <!-- 满意度评估 -->
-            <div class="section">
-                <h3>满意度评估</h3>
-                <div class="rating-scale">（1 = 非常不满意，5 = 非常满意）</div>
-
-                <!-- 讲师满意度 -->
-                <div class="form-group">
-                    <label>对讲师的满意度<span class="required">*</span></label>
-                    <div class="rating">
-                        <label>
-                            <input type="radio" name="trainer_satisfaction" value="1" required>
-                            <span class="rating-label">1</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="trainer_satisfaction" value="2">
-                            <span class="rating-label">2</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="trainer_satisfaction" value="3">
-                            <span class="rating-label">3</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="trainer_satisfaction" value="4">
-                            <span class="rating-label">4</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="trainer_satisfaction" value="5">
-                            <span class="rating-label">5</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 讲义内容满意度 -->
-                <div class="form-group">
-                    <label>对讲义内容的满意度<span class="required">*</span></label>
-                    <div class="rating">
-                        <label>
-                            <input type="radio" name="content_satisfaction" value="1" required>
-                            <span class="rating-label">1</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="content_satisfaction" value="2">
-                            <span class="rating-label">2</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="content_satisfaction" value="3">
-                            <span class="rating-label">3</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="content_satisfaction" value="4">
-                            <span class="rating-label">4</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="content_satisfaction" value="5">
-                            <span class="rating-label">5</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 场地环境满意度 -->
-                <div class="form-group">
-                    <label>对场地环境的满意度<span class="required">*</span></label>
-                    <div class="rating">
-                        <label>
-                            <input type="radio" name="venue_satisfaction" value="1" required>
-                            <span class="rating-label">1</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="venue_satisfaction" value="2">
-                            <span class="rating-label">2</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="venue_satisfaction" value="3">
-                            <span class="rating-label">3</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="venue_satisfaction" value="4">
-                            <span class="rating-label">4</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="venue_satisfaction" value="5">
-                            <span class="rating-label">5</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 训练器材满意度 -->
-                <div class="form-group">
-                    <label>对训练器材的满意度<span class="required">*</span></label>
-                    <div class="rating">
-                        <label>
-                            <input type="radio" name="equipment_satisfaction" value="1" required>
-                            <span class="rating-label">1</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="equipment_satisfaction" value="2">
-                            <span class="rating-label">2</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="equipment_satisfaction" value="3">
-                            <span class="rating-label">3</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="equipment_satisfaction" value="4">
-                            <span class="rating-label">4</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="equipment_satisfaction" value="5">
-                            <span class="rating-label">5</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 课程安排满意度 -->
-                <div class="form-group">
-                    <label>对课程安排的满意度<span class="required">*</span></label>
-                    <div class="rating">
-                        <label>
-                            <input type="radio" name="schedule_satisfaction" value="1" required>
-                            <span class="rating-label">1</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="schedule_satisfaction" value="2">
-                            <span class="rating-label">2</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="schedule_satisfaction" value="3">
-                            <span class="rating-label">3</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="schedule_satisfaction" value="4">
-                            <span class="rating-label">4</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="schedule_satisfaction" value="5">
-                            <span class="rating-label">5</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- 整体满意度 -->
-                <div class="form-group">
-                    <label>对整体训练营的满意度<span class="required">*</span></label>
-                    <div class="rating">
-                        <label>
-                            <input type="radio" name="overall_satisfaction" value="1" required>
-                            <span class="rating-label">1</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="overall_satisfaction" value="2">
-                            <span class="rating-label">2</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="overall_satisfaction" value="3">
-                            <span class="rating-label">3</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="overall_satisfaction" value="4">
-                            <span class="rating-label">4</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="overall_satisfaction" value="5">
-                            <span class="rating-label">5</span>
-                        </label>
-                    </div>
+            <div class="form-group">
+                <label class="question-label">2. 我對正確訓練技巧的理解與掌握程度：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="technique" value="5" required> 非常了解</label>
+                    <label><input type="radio" name="technique" value="4"> 更加了解</label>
+                    <label><input type="radio" name="technique" value="3"> 普通</label>
+                    <label><input type="radio" name="technique" value="2"> 略有了解</label>
+                    <label><input type="radio" name="technique" value="1"> 依然模糊</label>
                 </div>
             </div>
 
-            <!-- 感想与建议 -->
-            <div class="section">
-                <h3>感想与建议</h3>
-                <div class="form-group">
-                    <label for="favorite">您最喜欢训练营的哪一部分？为什么？</label>
-                    <textarea id="favorite" name="favorite" rows="3" placeholder="请分享您最喜欢的训练营内容..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="improvement">您认为训练营有什么需要改善的地方？</label>
-                    <textarea id="improvement" name="improvement" rows="3" placeholder="请提出您的改善建议..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="future_suggestions">对未来训练营的建议（例如课程内容、活动形式等）</label>
-                    <textarea id="future_suggestions" name="future_suggestions" rows="3" placeholder="请分享您对未来训练营的建议..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="other_comments">其他意见或感想</label>
-                    <textarea id="other_comments" name="other_comments" rows="3" placeholder="请分享您的其他意见或感想..."></textarea>
+            <div class="form-group">
+                <label class="question-label">3. 我現在為自己安排訓練課表的能力：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="planning" value="5" required> 充滿信心</label>
+                    <label><input type="radio" name="planning" value="4"> 有能力安排</label>
+                    <label><input type="radio" name="planning" value="3"> 有基本概念</label>
+                    <label><input type="radio" name="planning" value="2"> 仍需協助</label>
+                    <label><input type="radio" name="planning" value="1"> 沒有幫助</label>
                 </div>
             </div>
 
-            <!-- 提交按钮 -->
-            <button type="submit" class="submit-btn">提交调查</button>
+            <div class="form-group">
+                <label class="question-label">4. 我在健身健美領域的自信心提升程度：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="confidence" value="5" required> 大幅提升</label>
+                    <label><input type="radio" name="confidence" value="4"> 有所提升</label>
+                    <label><input type="radio" name="confidence" value="3"> 普通</label>
+                    <label><input type="radio" name="confidence" value="2"> 略有提升</label>
+                    <label><input type="radio" name="confidence" value="1"> 沒有變化</label>
+                </div>
+            </div>
+
+            <!-- Part 2: 滿意度調查 (Satisfaction Survey) -->
+            <div class="section-title">第二部分：訓練營滿意度調查</div>
+
+            <div class="form-group">
+                <label class="question-label">5. 對本次訓練營【講師專業度與教學方式】的滿意度：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="instructor" value="5" required> 非常滿意</label>
+                    <label><input type="radio" name="instructor" value="4"> 滿意</label>
+                    <label><input type="radio" name="instructor" value="3"> 普通</label>
+                    <label><input type="radio" name="instructor" value="2"> 不太滿意</label>
+                    <label><input type="radio" name="instructor" value="1"> 非常不滿意</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="question-label">6. 對本次訓練營【講義/教材內容】的滿意度：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="materials" value="5" required> 非常滿意</label>
+                    <label><input type="radio" name="materials" value="4"> 滿意</label>
+                    <label><input type="radio" name="materials" value="3"> 普通</label>
+                    <label><input type="radio" name="materials" value="2"> 不太滿意</label>
+                    <label><input type="radio" name="materials" value="1"> 非常不滿意</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="question-label">7. 對本次訓練營【場地環境與器材】的滿意度：<span class="required">*</span></label>
+                <div class="rating-group">
+                    <label><input type="radio" name="venue" value="5" required> 非常滿意</label>
+                    <label><input type="radio" name="venue" value="4"> 滿意</label>
+                    <label><input type="radio" name="venue" value="3"> 普通</label>
+                    <label><input type="radio" name="venue" value="2"> 不太滿意</label>
+                    <label><input type="radio" name="venue" value="1"> 非常不滿意</label>
+                </div>
+            </div>
+
+            <!-- Part 3: 開放式問題 (Open-ended Questions) -->
+            <div class="section-title">第三部分：建議與期望</div>
+
+            <div class="form-group">
+                <label for="suggestions" class="question-label">8. 您認為本次訓練營最值得讚賞的地方是什麼？或有什麼可以改善的建議？</label>
+                <textarea id="suggestions" name="suggestions" rows="4" placeholder="任何建議，無論大小，我們都非常重視..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="products" class="question-label">9. 未來，您希望訓練營可以提供哪些相關【產品】售賣？</label>
+                <textarea id="products" name="products" rows="4" placeholder="例如：品牌服飾、特製搖搖杯、訓練日誌、營養補充品、彈力帶等..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="services" class="question-label">10. 未來，您希望訓練營可以增加或包含哪些【服務】？</label>
+                <textarea id="services" name="services" rows="4" placeholder="例如：一對一姿勢矯正、線上跟進課程、營養餐單諮詢、備賽指導、定期聚會等..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">提交回饋</button>
         </form>
+
+        <!-- 舊生回訓優惠計劃 -->
+        <h2>舊生回訓優惠計劃</h2>
+        <div class="plan-details">
+            <p>為鼓勵學員溫故知新，深化對訓練營理論知識的融會貫通，我們推出以下回訓計劃：</p>
+            <ul>
+                <li><strong>優惠資格：</strong>凡完成完整營期之學員。</li>
+                <li><strong>優惠內容：</strong>未來均可以原價五折之優惠價格，再次報名參加任何一期訓練營。</li>
+            </ul>
+            <p>我們的課程內容與時俱進，每期訓練營均會納入最新的健身健美理論與實踐知識，確保學員所學皆為前沿資訊。</p>
+            <p>我們深信，訓練營的真正價值在於現場的實務操作與個人化指導。透過親身實踐，方能將理論化為實力。我們相信，重視長期成長的您，將會做出最明智的選擇。</p>
+            <p>若對以上方案有任何疑問，歡迎隨時與我們聯繫。</p>
+        </div>
     </div>
 </body>
 </html>
